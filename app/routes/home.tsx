@@ -1,13 +1,25 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Text } from "../components/atoms/Text";
+import { NavItem } from "../components/atoms/NavItem";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+export default function Home(){
+  return(
+    <div style={{padding: '50px', background: '#0a0a0a', minHeight: '100vh'}}>
+      
+      <Text size="xl" weight="bold">Portafolio :3 (En xl)</Text>
+      <br /> {/*separador*/}
+      <Text size="large">Subtitulo en grande -large</Text>
+      <br /> 
+      <Text size="medium">Texto normal/predeterminado -medium (En xl)</Text>
+      <br /> 
+      <Text size="small" color="#ff0000">Texto pequeño en rojo -small</Text>
+      <br /> 
 
-export default function Home() {
-  return <Welcome />;
+      <Text size="large">Menú de navegación:</Text>
+      <br />
+      <NavItem to="/contact">Contacto</NavItem>
+      <NavItem to="/info">Información</NavItem>
+      <NavItem to="/projects">Proyectos</NavItem>
+
+    </div>
+  )
 }
