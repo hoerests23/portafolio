@@ -16,11 +16,11 @@ export const Text: React.FC<TextProps> = ({
     className = ''
 }) => {
 
-    const sizeMap = {
-    small: '14px',
-    medium: '16px',
-    large: '32px',
-    xl: '72px'
+  const sizeMap = {
+  small: '14px',
+  medium: '16px',
+  large: '32px',
+  xl: '72px'
   }
 
   const weightMap = {
@@ -34,9 +34,10 @@ export const Text: React.FC<TextProps> = ({
     fontSize: sizeMap[size],           
     fontWeight: weightMap[weight],     
     color: color,
-    letterSpacing: size === 'xl' ? '-2px' : '0',  //para textos mas grandes (por eso xl jeje)
+    letterSpacing: size === 'xl' ? '-2px' : '0',  //solo para textos mas grandes (por eso xl jeje)
     margin: 0,
-    padding: 0
+    padding: 0,
+    whiteSpace: 'pre-line'
   };
   //retornar elemento
   return (
