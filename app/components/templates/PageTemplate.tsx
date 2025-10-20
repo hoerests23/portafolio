@@ -13,13 +13,13 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
     return (
     <div style={{
       background: 'transparent',
-      minHeight: '100vh',
+      //minHeight: '100vh',
       color: '#fff'
     }}>
       {header}
       <div style={{
         paddingTop: '120px', 
-        paddingBottom: '60px',
+        //paddingBottom: '60px',
         paddingLeft: '30px',
         paddingRight: '30px',
         minHeight: '100vh'

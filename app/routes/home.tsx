@@ -131,10 +131,11 @@ export default function Home(){
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: 'url(/images/des.jpg)',
+          background: '#0a0a0a',
           backgroundSize: '140%',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
+          //backgroundImage: 'url(/images/des.jpg)',
           //opacity: currentBg === '/images/des.jpg' ? 1 : 0,
           //transition: 'opacity 1s ease-in-out',
         }} />
@@ -173,7 +174,9 @@ export default function Home(){
                 minHeight: '30vh',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                scrollMarginTop: '120px',
+                //paddingBottom: '700px'
               }}>
                 <HeroText 
                   name="Bastián Moya"
@@ -192,8 +195,10 @@ export default function Home(){
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-start',
-                paddingTop: '620px',
-                paddingBottom: '250px'
+                marginTop:'100vh', //asi pude separarlo del inicio sin padding
+                scrollMarginTop: '120px',
+                //paddingTop: '800px', 
+                //paddingBottom: '250px'
               }}>
                 <div style={{ 
                   marginBottom: '80px',

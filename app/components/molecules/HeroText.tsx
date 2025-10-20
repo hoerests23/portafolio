@@ -18,7 +18,7 @@ export const HeroText: React.FC<HeroTextProps> = ({
         <div style={{ 
                 display: 'flex', 
                 flexDirection: 'column',
-                gap: '10px'
+                //gap: '10px'
             }}>
             <Text size='xl' weight='bold'>
                 {name}
