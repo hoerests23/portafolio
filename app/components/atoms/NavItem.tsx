@@ -35,10 +35,12 @@ export const NavItem: React.FC<NavItemProps> = ({ to, children}) => {
                     e.preventDefault();
                     const target = document.querySelector(to);
                     if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                        // Actualizar el hash manualmente después del scroll
+                        target.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
                         window.history.pushState(null, '', to);
-                        // Disparar el evento hashchange manualmente
                         window.dispatchEvent(new HashChangeEvent('hashchange'));
                     }
                 }}

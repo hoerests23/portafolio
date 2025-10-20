@@ -5,11 +5,13 @@ import { PageTemplate } from "../components/templates/PageTemplate";
 import { useState, useEffect } from "react";
 import { Text } from "~/components/atoms/Text";
 import { ProjectsGrid } from "../components/organisms/ProjectsGrid";
+import { ContactForm } from "../components/organisms/ContactForm";
 
 export default function Home(){
 
   const [menuItems, setMenuItems] = useState<Array<{label: string, path: string}>>([])
   const [isLoading, setIsLoading] = useState(true)
+  //const [currentBg, setCurrentBg] = useState('/images/des.jpg')
 
   useEffect(() => {
     document.title = 'Portafolio - Inicio'
@@ -36,6 +38,24 @@ export default function Home(){
 
     loadMenuData()
   }, [])
+
+  /*
+  useEffect(() => {
+    const handleScroll = () => {
+      const contactSection = document.querySelector('#contact');
+      if (contactSection) {
+        const rect = contactSection.getBoundingClientRect();
+        if (rect.top <= window.innerHeight / 2) {
+          setCurrentBg('/images/des1.jpg'); 
+        } else {
+          setCurrentBg('/images/des.jpg');
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  */
 
   if (isLoading) {
     return(
@@ -103,10 +123,6 @@ export default function Home(){
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundImage: 'url(/images/des.jpg)',
-        backgroundSize: '140%',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
         zIndex: 0
       }}>
         <div style={{
@@ -115,9 +131,36 @@ export default function Home(){
           left: 0,
           right: 0,
           bottom: 0,
+          backgroundImage: 'url(/images/des.jpg)',
+          backgroundSize: '140%',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          //opacity: currentBg === '/images/des.jpg' ? 1 : 0,
+          //transition: 'opacity 1s ease-in-out',
+        }} />
+        {/*img 2
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: 'url(/images/des1.jpg)',
+          backgroundSize: '110%',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          opacity: currentBg === '/images/des1.jpg' ? 0.7 : 0,
+          transition: 'opacity 1s ease-in-out'
+        }} />*/}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
           background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.75) 100%)',
           backdropFilter: 'blur(2px)'
-        }} />
+        }} /> 
       </div>
       <div style={{ position: 'relative', zIndex: 1 }}>
         <PageTemplate
@@ -143,12 +186,14 @@ export default function Home(){
                   </Text>
                 </div>
               </div>
+              {/* info */}
               <div id="info" style={{
                 minHeight: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
-                padding: '120px 0'
+                justifyContent: 'flex-start',
+                paddingTop: '620px',
+                paddingBottom: '250px'
               }}>
                 <div style={{ 
                   marginBottom: '80px',
@@ -195,8 +240,6 @@ export default function Home(){
                     </div>
                   </div>
                 </div>
-
-                {/* experiencia */}
                 <a 
                   href="https://www.linkedin.com/in/basti%C3%A1n-moya-vargas-2a99a638b/"
                   target="_blank"  // abrir en nueva pestaña
@@ -246,15 +289,13 @@ export default function Home(){
                   </div>
                 </a>
               </div>
-                {/* fin experiencia */}
+                {/* fin info */}
 
-                {/* proyectos */}
+              {/* proyectos */}
               <ProjectsGrid projects={projects} />
-                {/* fin proyectos */}
 
-              <div id="contact" style={{ minHeight: '100vh' }}>
-                <Text>Contacto</Text>
-              </div>
+              {/* contactos */}
+              <ContactForm />
 
             </MainContent>
           }
