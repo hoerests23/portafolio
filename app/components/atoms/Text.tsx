@@ -5,7 +5,8 @@ interface TextProps{
     size?: 'small' | 'medium' | 'large' | 'xl'
     weight?: 'light' | 'normal' | 'bold'
     color?: string
-    className?: string
+    className?: string,
+    style?: React.CSSProperties;
 }
 
 export const Text: React.FC<TextProps> = ({
@@ -13,14 +14,15 @@ export const Text: React.FC<TextProps> = ({
     size = 'medium',
     weight = 'light',
     color = '#fff',
-    className = ''
+    className = '',
+    style: customStyle
 }) => {
 
   const sizeMap = {
   small: '14px',
   medium: '16px',
   large: '32px',
-  xl: '72px'
+  xl: '64px'
   }
 
   const weightMap = {
@@ -29,19 +31,22 @@ export const Text: React.FC<TextProps> = ({
     bold: '700'
   }
 
-  //cambiar estilos segun props
-  const style: React.CSSProperties = {
-    fontSize: sizeMap[size],           
-    fontWeight: weightMap[weight],     
+  //combinar estilos
+  const defaultStyle: React.CSSProperties = {
+    fontSize: sizeMap[size],
+    fontWeight: weightMap[weight],
     color: color,
-    letterSpacing: size === 'xl' ? '-2px' : '0',  //solo para textos mas grandes (por eso xl jeje)
+    letterSpacing: size === 'xl' ? '-2px' : '0',
     margin: 0,
     padding: 0,
-    whiteSpace: 'pre-line'
+    display: 'block'
   };
+
+  const finalStyle = { ...defaultStyle, ...customStyle };
+
   //retornar elemento
   return (
-    <span style={style} className={className}>
+    <span style={finalStyle} className={className}>
       {children}
     </span>
   );

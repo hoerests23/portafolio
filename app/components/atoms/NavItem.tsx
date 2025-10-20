@@ -24,13 +24,37 @@ export const NavItem: React.FC<NavItemProps> = ({ to, children}) => {
     };
 
     return (
-    <Link 
-        to={to}
-        style={style}
-        onMouseEnter={() => setIsHovered(true)} 
-        onMouseLeave={() => setIsHovered(false)}  
-    >
-        {children}
-    </Link>
+    <>
+        {to.startsWith('#') ? (
+            <a 
+                href={to}
+                style={style}
+                onMouseEnter={() => setIsHovered(true)} 
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={(e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(to);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        // Actualizar el hash manualmente después del scroll
+                        window.history.pushState(null, '', to);
+                        // Disparar el evento hashchange manualmente
+                        window.dispatchEvent(new HashChangeEvent('hashchange'));
+                    }
+                }}
+            >
+                {children}
+            </a>
+        ) : (
+            <Link 
+                to={to}
+                style={style}
+                onMouseEnter={() => setIsHovered(true)} 
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                {children}
+            </Link>
+        )}
+    </>
     );
 }

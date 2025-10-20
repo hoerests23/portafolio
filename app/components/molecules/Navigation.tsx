@@ -14,22 +14,56 @@ export const Navigation: React.FC<NavigationProps> = ({items}) => {
 
     const location = useLocation()
     //item activo
-    const [activePath, setActivePath] = useState(location.pathname)
+    const [activePath, setActivePath] = useState(location.hash || '/');
 
     useEffect(() => {
-        setActivePath(location.pathname)   
-    }, [location.pathname])
+        const handleHashChange = () => {
+            setActivePath(window.location.hash || '/');
+        };
+        
+        window.addEventListener('hashchange', handleHashChange);
+        
+        return () => {
+            window.removeEventListener('hashchange', handleHashChange);
+        };
+    }, []);
+    useEffect(() => {
+    const handleScroll = () => {
+        const sections = ['#inicio', '#info', '#projects', '#contact'];
+        
+        for (const section of sections) {
+            const element = document.querySelector(section);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    setActivePath(section);
+                    break;
+                }
+            }
+        }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+}, []);
 
     return(
         <nav style={{
             display: 'flex', 
-            flexDirection: 'column'
+            flexDirection: 'row',
+            gap: '40px',
+            alignItems: 'center'
             }}>
             {items.map((item, index) => (
                 <div key={index} style={{
                     position: 'relative',
-                    borderLeft: activePath === item.path ? '3px solid #fff' : '3px solid transparent',
-                    paddingLeft: '10px',
+                    borderBottom: activePath === item.path 
+                        ? '2px solid #fff' : '2px solid transparent',
+                    paddingBottom: '4px',
                     transition: 'border-color 0.3s ease'
                 }}>
                 <NavItem key={index} to={item.path}>

@@ -1,9 +1,10 @@
 import { HeroText } from "../components/molecules/HeroText";
-import { Sidebar } from "~/components/organisms/Sidebar";
+import { Header } from "~/components/organisms/Header";
 import { MainContent } from "../components/organisms/MainContent";
 import { PageTemplate } from "../components/templates/PageTemplate";
 import { useState, useEffect } from "react";
 import { Text } from "~/components/atoms/Text";
+import { ProjectsGrid } from "../components/organisms/ProjectsGrid";
 
 export default function Home(){
 
@@ -22,9 +23,10 @@ export default function Home(){
     const loadMenuData = () => {
       setTimeout(() => {
         const data = [
-          { label: 'Información', path: '/info' },
-          { label: 'Proyectos', path: '/projects' },
-          { label: 'Contacto', path: '/contact' }
+          { label: 'Inicio', path: '#inicio' },
+          { label: 'Información', path: '#info' },
+          { label: 'Proyectos', path: '#projects' },
+          { label: 'Contacto', path: '#contact' }
         ];
         
         setMenuItems(data)
@@ -69,54 +71,195 @@ export default function Home(){
       </div>
     )
   }
+  const projects = [
+  {
+    id: 1,
+    title: "Portafolio Personal",
+    description: "Sitio web personal desarrollado con React Router y TypeScript, implementando Atomic Design para una arquitectura escalable.",
+    technologies: ["React", "TypeScript", "Atomic Design"],
+    link: "#",
+  },
+  {
+    id: 2,
+    title: "Aplicación de registro en dispositivos móviles",
+    description: "Sistema de registro y login adaptado a dispositivos móviles, con diseño responsivo y persistencia de datos.",
+    technologies: ["Kotlin", "Jetpack Compose."],
+    link: "https://github.com/hoerests23/proyecto-moviles",
+  },
+  {
+    id: 3,
+    title: "Tienda web Online",
+    description: "Plataforma de comercio electrónico con catálogos dinámicos y diseño responsivo. Implementación de un sistema avanzado de registro y acceso para clientes.",
+    technologies: ["HTML", "CSS", "JavaScript"],
+    link: "https://github.com/SebastianPinoB/Level-up-gamer",
+  }
+  ];
+  
   return (
-    <PageTemplate
-      sidebar={
-        <Sidebar
-          menuItems={menuItems}
-          logoText="Menú"
+    <div style={{ position: 'relative', minHeight: '100vh' }}>
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundImage: 'url(/images/des.jpg)',
+        backgroundSize: '140%',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        zIndex: 0
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.75) 100%)',
+          backdropFilter: 'blur(2px)'
+        }} />
+      </div>
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <PageTemplate
+          header={
+            <Header menuItems={menuItems} />
+          }
+          mainContent={
+            <MainContent>
+              <div id="inicio" style={{
+                minHeight: '30vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
+              }}>
+                <HeroText 
+                  name="Bastián Moya"
+                  subtitle="Estudiante de ingeniería en informática."
+                  //poner el div de abajo aquí como descripcion y el otro utilizarlo como señaletica, quizas-
+                />                
+                <div style={{ marginTop: '40px' }}>
+                  <Text size="medium" color="#ccc">
+                    Bienvenido. Explora mis proyectos y conoce más información sobre mi.
+                  </Text>
+                </div>
+              </div>
+              <div id="info" style={{
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                padding: '120px 0'
+              }}>
+                <div style={{ 
+                  marginBottom: '80px',
+                  borderLeft: '4px solid #fff',
+                  paddingLeft: '20px'
+                }}>
+                  <Text size="xl" weight="bold">Información</Text>
+                </div>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '60px',
+                  marginBottom: '60px'
+                }}>
+                  <div>
+                    <Text size="large" weight="bold" style={{ marginBottom: '20px' }}>
+                      Sobre mí
+                    </Text>
+                    <Text size="medium" color="#ccc" style={{ lineHeight: '1.8' }}>
+                      Apasionado por la tecnología y el desarrollo de software.
+                      Siempre buscando aprender nuevas tecnologías y metodologías.
+                    </Text>
+                  </div>
+                  <div>
+                    <Text size="large" weight="bold" style={{ marginBottom: '20px' }}>
+                      Habilidades
+                    </Text>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr',
+                      gap: '15px'
+                    }}>
+                      {['React & TypeScript', 'Diseño responsivo', 'Git & GitHub', 'Metodologías ágiles'].map((skill, i) => (
+                        <div key={i} style={{
+                          padding: '12px 20px',
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          borderRadius: '8px',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          transition: 'all 0.3s ease'
+                        }}>
+                          <Text size="small" color="#ccc">{skill}</Text>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* experiencia */}
+                <a 
+                  href="https://www.linkedin.com/in/basti%C3%A1n-moya-vargas-2a99a638b/"
+                  target="_blank"  // abrir en nueva pestaña
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'block',
+                    padding: '50px',
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    marginTop: '40px',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center' 
+                  }}>
+                    <div>
+                      <div style={{ marginBottom: '16px' }}>
+                        <Text size="large" weight="bold">Perfil Profesional</Text>
+                      </div>
+                      <Text size="medium" color="#ccc" style={{ lineHeight: '1.8' }}>
+                        Visita mi perfil de LinkedIn.
+                      </Text>
+                    </div>
+                    <div style={{ 
+                      fontSize: '32px',
+                      color: '#0077b5',
+                      transition: 'transform 0.3s ease'
+                    }}>
+                      in
+                    </div>
+                  </div>
+                </a>
+              </div>
+                {/* fin experiencia */}
+
+                {/* proyectos */}
+              <ProjectsGrid projects={projects} />
+                {/* fin proyectos */}
+
+              <div id="contact" style={{ minHeight: '100vh' }}>
+                <Text>Contacto</Text>
+              </div>
+
+            </MainContent>
+          }
         />
-      }
-      mainContent={
-        <MainContent>
-          <HeroText 
-            name="Bastián Moya"
-            subtitle="Estudiante de ingeniería en informática."
-          />
-
-          <div style={{marginTop: '100px'}}>
-            <Text size="large" weight="bold">Sobre mí</Text>
-            <br />
-            <Text size="medium" color="#ccc">
-              Apasionado por la tecnología y el desarrollo de software.
-              Siempre buscando aprender nuevas tecnologías y metodologías.
-            </Text>
-          </div>
-
-          <div style={{ marginTop: '100px' }}>
-            <Text size="large" weight="bold">Habilidades</Text>
-            <br /><br />
-            <Text size="medium" color="#ccc">
-              • React & TypeScript
-              <br />
-              • Diseño responsivo
-              <br />
-              • Git & GitHub
-              <br />
-              • Metodologías ágiles
-            </Text>
-          </div>
-
-          <div style={{ marginTop: '100px', marginBottom: '100px' }}>
-            <Text size="large" weight="bold">Experiencia</Text>
-            <br /><br />
-            <Text size="medium" color="#ccc">
-              Proyectos académicos y personales enfocados en desarrollo web full stack.
-            </Text>
-          </div>
-
-        </MainContent>
-      }
-    />  
+      </div>
+    </div>
   );
 }

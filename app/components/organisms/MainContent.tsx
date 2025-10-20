@@ -9,8 +9,10 @@ export const MainContent: React.FC<MainContentProps> = ({children}) => {
         <main style={{
             flex: 1,
             padding: '20px',
-            maxWidth: '900px',
-            minHeight: '100vh'
+            maxWidth: '1500px',
+            margin: '0 auto',
+            width: '100%'
+            //minHeight: '100vh'
         }}>
             {children}
         </main>
