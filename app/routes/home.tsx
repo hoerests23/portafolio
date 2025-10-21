@@ -7,10 +7,12 @@ import { Text } from "~/components/atoms/Text";
 import { ProjectsGrid } from "../components/organisms/ProjectsGrid";
 import { ContactForm } from "../components/organisms/ContactForm";
 
+
 export default function Home(){
 
   const [menuItems, setMenuItems] = useState<Array<{label: string, path: string}>>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
   //const [currentBg, setCurrentBg] = useState('/images/des.jpg')
 
   useEffect(() => {
@@ -38,24 +40,6 @@ export default function Home(){
 
     loadMenuData()
   }, [])
-
-  /*
-  useEffect(() => {
-    const handleScroll = () => {
-      const contactSection = document.querySelector('#contact');
-      if (contactSection) {
-        const rect = contactSection.getBoundingClientRect();
-        if (rect.top <= window.innerHeight / 2) {
-          setCurrentBg('/images/des1.jpg'); 
-        } else {
-          setCurrentBg('/images/des.jpg');
-        }
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  */
 
   if (isLoading) {
     return(
@@ -116,53 +100,25 @@ export default function Home(){
   ];
   
   return (
-    <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 0
+    <div style={{ 
+        position: 'relative', 
+        minHeight: '100vh',
+        background: 'linear-gradient(-45deg, #000000, #0c0c0cff, #050505ff, #0d0d0d, #000000)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientShift 14s ease infinite',
+        backgroundAttachment: 'fixed'
       }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: '#0a0a0a',
-          backgroundSize: '140%',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          //backgroundImage: 'url(/images/des.jpg)',
-          //opacity: currentBg === '/images/des.jpg' ? 1 : 0,
-          //transition: 'opacity 1s ease-in-out',
-        }} />
-        {/*img 2
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: 'url(/images/des1.jpg)',
-          backgroundSize: '110%',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          opacity: currentBg === '/images/des1.jpg' ? 0.7 : 0,
-          transition: 'opacity 1s ease-in-out'
-        }} />*/}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.75) 100%)',
-          backdropFilter: 'blur(2px)'
-        }} /> 
-      </div>
+      <style>
+        {`
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          25% { background-position: 100% 50%; }
+          50% { background-position: 100% 100%; }
+          75% { background-position: 0% 100%; }
+          100% { background-position: 0% 50%; }
+        }`
+        }
+      </style>
       <div style={{ position: 'relative', zIndex: 1 }}>
         <PageTemplate
           header={
@@ -181,7 +137,21 @@ export default function Home(){
                 <HeroText 
                   name="Bastián Moya"
                   subtitle="Estudiante de ingeniería en informática."
+                  //profileImage="/images/asdeeee.jpg"
                   //poner el div de abajo aquí como descripcion y el otro utilizarlo como señaletica, quizas-
+                />
+                <br />
+                <img 
+                    src="/images/asdeeee.jpg" 
+                    alt="imagenfp" 
+                    style={{
+                        width: '250px',
+                        height: '250px',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        border: '3px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+                    }}
                 />                
                 <div style={{ marginTop: '40px' }}>
                   <Text size="medium" color="#ccc">
@@ -232,13 +202,24 @@ export default function Home(){
                       gap: '15px'
                     }}>
                       {['React & TypeScript', 'Diseño responsivo', 'Git & GitHub', 'Metodologías ágiles'].map((skill, i) => (
-                        <div key={i} style={{
-                          padding: '12px 20px',
-                          background: 'rgba(255, 255, 255, 0.05)',
-                          borderRadius: '8px',
-                          border: '1px solid rgba(255, 255, 255, 0.1)',
-                          transition: 'all 0.3s ease'
-                        }}>
+                        <div 
+                          key={i} 
+                          style={{
+                            padding: '12px 20px',
+                            background: hoveredSkill === i 
+                              ? 'rgba(255, 255, 255, 0.1)' 
+                              : 'rgba(255, 255, 255, 0.05)',
+                            borderRadius: '8px',
+                            border: `1px solid ${hoveredSkill === i 
+                              ? 'rgba(255, 255, 255, 0.3)' 
+                              : 'rgba(255, 255, 255, 0.1)'}`,
+                            transform: hoveredSkill === i ? 'translateY(-2px)' : 'translateY(0)',
+                            transition: 'all 0.3s ease',
+                            cursor: 'pointer'
+                          }}
+                          onMouseEnter={() => setHoveredSkill(i)}
+                          onMouseLeave={() => setHoveredSkill(null)}
+                        >
                           <Text size="small" color="#ccc">{skill}</Text>
                         </div>
                       ))}
